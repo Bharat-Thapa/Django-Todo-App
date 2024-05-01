@@ -19,6 +19,9 @@ COPY --from=builder /build /app
 # Install Django for production
 RUN pip install django==3.2
 
+# Run migrations
+RUN python manage.py migrate
+
 # Expose port
 EXPOSE 8000
 
