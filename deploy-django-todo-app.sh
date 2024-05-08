@@ -4,6 +4,7 @@
 
 # Function to clone the Django app code
 code_clone() {
+    cd ..
     echo "Cloning the Django app..."
     if [ -d "Django-Todo-App" ]; then
         echo "The code directory already exists. Skipping clone."
@@ -40,6 +41,10 @@ required_restarts() {
 
 # Function to deploy the Django app
 deploy() {
+    cd Django-Todo-App || {
+    echo "Failed to navigate to Django-Todo-App directory."
+    return 1
+    }
     echo "Building and deploying the Django app..."
     docker build -t notes-app . && docker compose up -d || {
         echo "Failed to build and deploy the app."
@@ -52,7 +57,7 @@ echo "********** DEPLOYMENT STARTED *********"
 
 # Clone the code
 if ! code_clone; then
-    cd Django-Todo-App || exit 1
+    exit 1
 fi
 
 # Install dependencies
