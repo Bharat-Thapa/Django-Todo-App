@@ -46,7 +46,7 @@ deploy() {
     return 1
     }
     echo "Building and deploying the Django app..."
-    docker build -t notes-app . && docker compose up -d || {
+    docker compose up -d || {
         echo "Failed to build and deploy the app."
         return 1
     }
