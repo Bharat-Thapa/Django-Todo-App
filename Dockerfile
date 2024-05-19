@@ -1,7 +1,7 @@
 # Stage 1: Build stage
 FROM python:3 AS builder
 
-WORKDIR /build
+WORKDIR /app
 
 COPY . .
 
@@ -17,7 +17,7 @@ FROM python:3-slim AS production
 WORKDIR /app
 
 # Copy only necessary files from the build stage
-COPY --from=builder /build /app
+COPY --from=builder /app .
 
 # Install Django for production
 RUN pip install django==3.2
